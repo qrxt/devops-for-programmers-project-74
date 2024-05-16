@@ -9,7 +9,7 @@ RUN npm ci
 
 COPY app/. .
 
-EXPOSE 8080 5432
+EXPOSE 8080 5432 80 443
 ENV NODE_ENV=production
 RUN make build
 
