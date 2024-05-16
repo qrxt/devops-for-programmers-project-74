@@ -2,7 +2,8 @@ version: "3"
 services:
   app:
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     image: qrxt37/devops-for-programmers-project-74
     build:
       context: .
@@ -25,6 +26,11 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   caddy:
     depends_on:

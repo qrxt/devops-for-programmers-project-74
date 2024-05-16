@@ -39,6 +39,12 @@ jobs:
           context: .
           tags: ${{ env.TAG }}
       -
+        name: Check services healthiness
+        uses: thegabriele97/dockercompose-health-action@main
+        with:
+          timeout: '60'
+          workdir: '.'
+      -
         name: Run tests
         run: make test
       -
